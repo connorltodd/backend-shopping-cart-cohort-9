@@ -46,6 +46,7 @@ CREATE TABLE `Cart_Product` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`product_id` INT NOT NULL,
 	`cart_id` INT NOT NULL,
+	`quantity` INT NOT NULL DEFAULT (0)
 	PRIMARY KEY (`id`)
 );
 

@@ -7,6 +7,8 @@ const cors = require("cors");
 
 const productsRouter = require('./routes/product.route');
 const usersRouter = require('./routes/user.route');
+const cartRouter = require('./routes/cart.route');
+
 
 
 connection.connect((error) => {
@@ -34,6 +36,8 @@ app.use(function (req, res, next) {
 
 app.use('/products', productsRouter)
 app.use('/users', usersRouter)
+app.use('/cart', cartRouter)
+
 
 
 
