@@ -8,6 +8,8 @@ const cors = require("cors");
 const productsRouter = require('./routes/product.route');
 const usersRouter = require('./routes/user.route');
 const cartRouter = require('./routes/cart.route');
+const ordersRouter = require('./routes/orders.route');
+
 
 
 
@@ -37,6 +39,8 @@ app.use(function (req, res, next) {
 app.use('/products', productsRouter)
 app.use('/users', usersRouter)
 app.use('/cart', cartRouter)
+app.use('/orders', ordersRouter)
+
 
 
 
