@@ -26,10 +26,21 @@ router.post('/:cart_id/products', (request, response) => {
 
     connection.query('INSERT INTO Cart_Product (cart_id, product_id) VALUES (?,?)', 
     [formData.cart_id, formData.product_id], (error, results) => {
+        const newCartProductId = results.insertId
         if(error) {
             response.status(500).json(error)
         } else {
-            response.json({ message: 'product was successfully added to basket' })
+            connection.query(`
+                SELECT Product.*, Cart_Product.id as cart_product_id, Cart.id as cart_id, Cart_Product.quantity From Cart 
+                JOIN Cart_Product on Cart_Product.cart_id = Cart.id 
+                JOIN Product ON Product.id = Cart_Product.product_id 
+                WHERE Cart_Product.id = ?`, [newCartProductId], (error, results) => {
+                if(error) {
+                    response.status(500).json(error);
+                } else {
+                    response.json(results)
+                }
+            })
         }
     })
 })
