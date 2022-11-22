@@ -7,7 +7,7 @@ const connection = require('../config');
 router.get('/:cart_id/products', (request, response) => {
     const { cart_id } = request.params;
     connection.query(`
-    SELECT Product.*, Cart_Product.id as cart_product_id, Cart.id as cart_id, Cart_Product.quantity From Cart 
+    SELECT Product.*,  Product.id as product_id, Cart_Product.id as cart_product_id, Cart.id as cart_id, Cart_Product.quantity From Cart 
     JOIN Cart_Product on Cart_Product.cart_id = Cart.id 
     JOIN Product ON Product.id = Cart_Product.product_id 
     WHERE Cart.id = ?`, [cart_id], (error, results) => {
@@ -31,7 +31,7 @@ router.post('/:cart_id/products', (request, response) => {
             response.status(500).json(error)
         } else {
             connection.query(`
-                SELECT Product.*, Cart_Product.id as cart_product_id, Cart.id as cart_id, Cart_Product.quantity From Cart 
+                SELECT Product.*, Product.id as product_id, Cart_Product.id as cart_product_id, Cart.id as cart_id, Cart_Product.quantity From Cart 
                 JOIN Cart_Product on Cart_Product.cart_id = Cart.id 
                 JOIN Product ON Product.id = Cart_Product.product_id 
                 WHERE Cart_Product.id = ?`, [newCartProductId], (error, results) => {
